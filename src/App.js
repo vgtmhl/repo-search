@@ -47,19 +47,21 @@ function App() {
       {loading && <div>Loading...</div>}
 
       {!loading && (
-        <div className="CardsContainer">
-          {results?.map((repo) => (
-            <Card key={repo.id} {...repo} />
-          ))}
-        </div>
-      )}
+        <>
+          <div className="CardsContainer">
+            {results?.map((repo) => (
+              <Card key={repo.id} {...repo} />
+            ))}
+          </div>
 
-      <div>
-        {results?.length || 0} of {resultsNumber || 0}
-        {results?.length > 0 && (
-          <button onClick={handleShowMore}>Show more</button>
-        )}
-      </div>
+          <div>
+            {results?.length || 0} of {resultsNumber || 0}
+            {results?.length > 0 && (
+              <button onClick={handleShowMore}>Show more</button>
+            )}
+          </div>
+        </>
+      )}
     </div>
   );
 }
