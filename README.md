@@ -10,7 +10,7 @@ Realize a repository search app with:
 
 - a search bar that accepts a string, which is used to make a (debounced) call to the gitbhub repositories api.
 
-- one card per result, shown in waves of 10 cards. The card should contain:
+- one card per result, shown in pages of 5 cards. The card should contain:
 
   - the logo of the repo's owner
   - repo's title
