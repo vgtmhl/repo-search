@@ -8,7 +8,20 @@
 }
 
 .CardsContainer {
+  margin: auto;
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+  width: 100%;
+  padding: 1rem;
+}
+
+.showMoreButton {
+  margin-left: 0.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .CardsContainer {
+    flex-direction: column;
+  }
 }

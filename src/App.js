@@ -64,7 +64,9 @@ function App() {
           <div>
             {results.length} of {resultsNumber}
             {results.length < resultsNumber && (
-              <button onClick={handleShowMore}>Show more</button>
+              <button className="showMoreButton" onClick={handleShowMore}>
+                Show more
+              </button>
             )}
           </div>
         </>
