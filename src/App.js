@@ -8,31 +8,29 @@ import { results_per_page } from "./constants/constants";
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [results, setResults] = useState([]);
+  const [resultsNumber, setResultsNumber] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const currentPage = useRef(1);
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
   useEffect(() => {
     if (debouncedSearchTerm) {
       setLoading(true);
-      searchRepositories(debouncedSearchTerm, currentPage.current).then(
-        (results) => {
-          //TODO: add page number
-          setLoading(false);
-          setResults(results);
-        }
-      );
+      searchRepositories(debouncedSearchTerm, currentPage).then((results) => {
+        setLoading(false);
+        setResults((oldResults) => [...oldResults, ...results.items]);
+        setResultsNumber(results.total_count);
+      });
     } else {
       setResults([]);
       setLoading(false);
     }
-  }, [debouncedSearchTerm]);
+  }, [debouncedSearchTerm, currentPage]);
 
-  // TODO: remove, only for displaying results for development
-  useEffect(() => {
-    console.log(results);
-  }, [results]);
+  function handleShowMore() {
+    setCurrentPage((prevPage) => prevPage + 1);
+  }
 
   return (
     <div className="App">
@@ -45,17 +43,18 @@ function App() {
 
       {!loading && (
         <div className="CardsContainer">
-          {results?.items?.map((repo) => (
-            <Card {...repo} />
+          {results?.map((repo) => (
+            <Card key={repo.id} {...repo} />
           ))}
         </div>
       )}
 
-      {results.length > 0 && (
-        <div>
-          ${currentPage * results_per_page} of ${results.total_count}
-        </div>
-      )}
+      <div>
+        {results?.length || 0} of {resultsNumber || 0}
+        {results?.length > 0 && (
+          <button onClick={handleShowMore}>Show more</button>
+        )}
+      </div>
     </div>
   );
 }
