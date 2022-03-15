@@ -36,14 +36,13 @@ function App() {
 
   return (
     <div className="App">
-      // Input field
       <input
         placeholder="Search Repositories"
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      // Loading/Error
+
       {loading && <div>Loading...</div>}
-      // Results
+
       {!loading && (
         <div className="CardsContainer">
           {results?.items?.map((repo) => (
@@ -51,7 +50,7 @@ function App() {
           ))}
         </div>
       )}
-      // Paging
+
       {results.length > 0 && (
         <div>
           ${currentPage * results_per_page} of ${results.total_count}
