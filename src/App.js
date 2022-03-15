@@ -3,9 +3,9 @@ import "./App.css";
 import { useDebounce } from "./hooks/useDebounce";
 import { searchRepositories } from "./api/github/repositories";
 import { Card } from "./components/Card/Card";
-import { results_per_page } from "./constants/constants";
 
 function App() {
+  const searchStarted = useRef(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [results, setResults] = useState([]);
   const [resultsNumber, setResultsNumber] = useState(0);
@@ -15,6 +15,7 @@ function App() {
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
   useEffect(() => {
+    setLoading(true);
     setResults([]);
     setCurrentPage(1);
   }, [searchTerm]);
@@ -26,6 +27,7 @@ function App() {
         setLoading(false);
         setResults((oldResults) => [...oldResults, ...results?.items]);
         setResultsNumber(results.total_count);
+        searchStarted.current = true;
       });
     } else {
       setResults([]);
@@ -46,7 +48,11 @@ function App() {
 
       {loading && <div>Loading...</div>}
 
-      {!loading && (
+      {!loading && searchStarted.current && results?.length === 0 && (
+        <div>No entries:(</div>
+      )}
+
+      {!loading && results?.length > 0 && (
         <>
           <div className="CardsContainer">
             {results?.map((repo) => (
@@ -55,10 +61,8 @@ function App() {
           </div>
 
           <div>
-            {results?.length || 0} of {resultsNumber || 0}
-            {results?.length > 0 && (
-              <button onClick={handleShowMore}>Show more</button>
-            )}
+            {results?.length} of {resultsNumber || 0}
+            <button onClick={handleShowMore}>Show more</button>
           </div>
         </>
       )}
