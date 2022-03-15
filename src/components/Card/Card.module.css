@@ -6,7 +6,13 @@
   border-radius: 4px;
   padding: 1rem;
 
-  width: 47%;
+  width: 45%;
+}
+
+@media screen and (max-width: 1024px) {
+  .Card {
+    width: 90%;
+  }
 }
 
 .PrimaryInfo {
