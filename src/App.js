@@ -53,7 +53,7 @@ function App() {
         searchTerm.length > 0 &&
         results?.length === 0 && <div>No entries:(</div>}
 
-      {!loading && results?.length > 0 && (
+      {results?.length > 0 && (
         <>
           <div className="CardsContainer">
             {results?.map((repo) => (
