@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./App.css";
 import { useDebounce } from "./hooks/useDebounce";
 import { searchRepositories } from "./api/github/repositories";
@@ -8,16 +8,20 @@ function App() {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const currentPage = useRef(1);
+
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
   useEffect(() => {
     if (debouncedSearchTerm) {
       setLoading(true);
-      searchRepositories(debouncedSearchTerm, 1).then((results) => {
-        //TODO: add page number
-        setLoading(false);
-        setResults(results);
-      });
+      searchRepositories(debouncedSearchTerm, currentPage.current).then(
+        (results) => {
+          //TODO: add page number
+          setLoading(false);
+          setResults(results);
+        }
+      );
     } else {
       setResults([]);
       setLoading(false);
