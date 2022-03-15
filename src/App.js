@@ -48,9 +48,10 @@ function App() {
 
       {loading && <div>Loading...</div>}
 
-      {!loading && searchStarted.current && results?.length === 0 && (
-        <div>No entries:(</div>
-      )}
+      {!loading &&
+        searchStarted.current &&
+        searchTerm.length > 0 &&
+        results?.length === 0 && <div>No entries:(</div>}
 
       {!loading && results?.length > 0 && (
         <>
