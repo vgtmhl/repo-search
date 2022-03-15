@@ -15,6 +15,11 @@ function App() {
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
   useEffect(() => {
+    setResults([]);
+    setCurrentPage(1);
+  }, [searchTerm]);
+
+  useEffect(() => {
     if (debouncedSearchTerm) {
       setLoading(true);
       searchRepositories(debouncedSearchTerm, currentPage).then((results) => {
