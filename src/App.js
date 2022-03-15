@@ -62,8 +62,10 @@ function App() {
           </div>
 
           <div>
-            {results?.length} of {resultsNumber || 0}
-            <button onClick={handleShowMore}>Show more</button>
+            {results.length} of {resultsNumber}
+            {results.length < resultsNumber && (
+              <button onClick={handleShowMore}>Show more</button>
+            )}
           </div>
         </>
       )}
