@@ -4,6 +4,8 @@ During a tech interview, I was asked to code this application in React in 2 hour
 
 I completely screwed up :) so let's give this another go
 
+[Live preview](https://vgtmhl.github.io/repo-search/)
+
 ## Assignment
 
 Realize a repository search app with:
