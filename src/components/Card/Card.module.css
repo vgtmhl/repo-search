@@ -1,0 +1,24 @@
+.Card {
+  display: flex;
+  flex-direction: column;
+
+  border: 1px solid #eee;
+  border-radius: 4px;
+  padding: 1rem;
+}
+
+.PrimaryInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.RepoOwnerLogo {
+  max-width: 2rem;
+  margin-right: 0.5rem;
+}
+
+.Intro {
+  display: flex;
+  align-items: center;
+}
