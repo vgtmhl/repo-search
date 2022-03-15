@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import "./App.css";
 import { useDebounce } from "./hooks/useDebounce";
 import { searchRepositories } from "./api/github/repositories";
+import { Card } from "./components/Card/Card";
+import { results_per_page } from "./constants/constants";
 
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -9,7 +11,6 @@ function App() {
   const [loading, setLoading] = useState(false);
 
   const currentPage = useRef(1);
-
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
   useEffect(() => {
@@ -35,12 +36,27 @@ function App() {
 
   return (
     <div className="App">
+      // Input field
       <input
         placeholder="Search Repositories"
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-
-      {loading && "Loading..."}
+      // Loading/Error
+      {loading && <div>Loading...</div>}
+      // Results
+      {!loading && (
+        <div className="CardsContainer">
+          {results?.items?.map((repo) => (
+            <Card {...repo} />
+          ))}
+        </div>
+      )}
+      // Paging
+      {results.length > 0 && (
+        <div>
+          ${currentPage * results_per_page} of ${results.total_count}
+        </div>
+      )}
     </div>
   );
 }
