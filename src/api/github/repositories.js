@@ -1,10 +1,10 @@
-const results_per_page = 5;
+import { results_per_page } from "../../constants/constants";
 
 const repo_search_endpoint = "https://api.github.com/search/repositories?q=";
 const paging_param = "&per-page=";
 const current_page_param = "&page=";
 
-export function getRepos(searchTerm, currentPage) {
+export function searchRepositories(searchTerm, currentPage) {
   const searchQuery =
     repo_search_endpoint +
     searchTerm +
