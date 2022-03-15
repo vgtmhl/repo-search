@@ -19,7 +19,7 @@ function App() {
       setLoading(true);
       searchRepositories(debouncedSearchTerm, currentPage).then((results) => {
         setLoading(false);
-        setResults((oldResults) => [...oldResults, ...results.items]);
+        setResults((oldResults) => [...oldResults, ...results?.items]);
         setResultsNumber(results.total_count);
       });
     } else {
